@@ -9,8 +9,9 @@ import com.xiaoqiu.mapper.UserMapper;
 import com.xiaoqiu.service.AuthService;
 import com.xiaoqiu.utils.JwtTokenUtil;
 import com.xiaoqiu.utils.RedisUtil;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.java.Log;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ import java.util.Date;
  * @description
  */
 @Service
+@Log
 public class AuthServiceImpl implements AuthService {
 
     @Autowired
@@ -66,6 +68,14 @@ public class AuthServiceImpl implements AuthService {
                 .build();
         userMapper.insert(user);
 
+    }
+
+    @Override
+    public void logout(HttpServletRequest request) {
+        //清除redis中的token
+        String token = request.getHeader("Authorization");
+        redisUtil.delete(token);
+        log.info("用户退出登录");
     }
 
     private String  encode(String  password,String salt) {

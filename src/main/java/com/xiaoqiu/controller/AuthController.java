@@ -7,6 +7,7 @@ import com.xiaoqiu.entity.VO.UserInfoVO;
 import com.xiaoqiu.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,5 +40,11 @@ public class AuthController {
     @Operation(summary = "用户登录", description = "用户登录")
     public Result<UserInfoVO> login(@RequestBody @Valid LoginRequest request) {
         return Result.success(authService.login(request));
+    }
+    @PostMapping("/logout")
+    @Operation(summary = "用户登出", description = "用户登出")
+    public Result logout(HttpServletRequest request) {
+        authService.logout(request);
+        return Result.success();
     }
 }

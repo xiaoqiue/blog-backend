@@ -3,6 +3,7 @@ package com.xiaoqiu.service;
 import com.xiaoqiu.entity.DTO.LoginRequest;
 import com.xiaoqiu.entity.DTO.RegisterRequest;
 import com.xiaoqiu.entity.VO.UserInfoVO;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * @author xiaoqiu
@@ -12,4 +13,6 @@ import com.xiaoqiu.entity.VO.UserInfoVO;
 public interface AuthService {
     UserInfoVO login(LoginRequest request);
     void register(RegisterRequest request);
+
+    void logout(HttpServletRequest request);
 }
