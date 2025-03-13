@@ -99,13 +99,6 @@
 			<scope>runtime</scope>
 		</dependency>
 
-<!--		&lt;!&ndash; Spring Security &ndash;&gt;-->
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-starter-security</artifactId>-->
-<!--		</dependency>-->
-
-
 
 
 		<!-- lombok (简化代码) -->
@@ -149,7 +142,7 @@
 			<scope>test</scope>
 		</dependency>
 
-	</dependencies>
+    </dependencies>
 
 	<build>
 		<plugins>

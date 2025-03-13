@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,6 +22,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class User implements Serializable {
     /**
      * 用户ID
@@ -41,6 +43,12 @@ public class User implements Serializable {
     @Schema(description = "密码", example = "password123")
     private String password;
 
+    /**
+     *
+     * 盐
+     */
+    @Schema(description = "盐", example = "salt1")
+    private String salt;
     /**
      * 昵称
      */
@@ -64,6 +72,8 @@ public class User implements Serializable {
      */
     @Schema(description = "角色：ADMIN/USER", example = "USER")
     private String role;
+
+
 
     /**
      * 状态：0-禁用，1-正常

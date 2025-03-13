@@ -7,8 +7,12 @@ import com.xiaoqiu.entity.User;
 import com.xiaoqiu.service.UserService;
 import com.xiaoqiu.mapper.UserMapper;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.UUID;
 
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -39,6 +43,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     @Override
     public void insertUser(User user) {
+        //对用户密码进行加盐加密
+        String password = user.getPassword();
+        //生成5位数的随机盐
+        String salt = RandomStringUtils.randomAlphanumeric(5);
+        //将盐加在密码后面
+        password += salt;
+        MD5Encoder.encode(password.getBytes(StandardCharsets.UTF_8));
         save(user);
     }
 
