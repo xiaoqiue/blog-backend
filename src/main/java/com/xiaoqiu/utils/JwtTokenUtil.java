@@ -59,4 +59,30 @@ public class JwtTokenUtil {
                 .getExpiration()
                 .before(new Date());
     }
+
+    public Date getExpirationDateFromToken(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(secretKey)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getExpiration();
+
+    }
+
+    public String refreshToken(String token) {
+
+            Claims claims = Jwts.parserBuilder()
+                    .setSigningKey(secretKey)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+
+            return Jwts.builder()
+                    .setClaims(claims)
+                    .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                    .signWith(secretKey, SignatureAlgorithm.HS256)
+                    .compact();
+    }
+
 }
